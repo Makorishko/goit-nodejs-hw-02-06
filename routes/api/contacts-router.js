@@ -3,8 +3,11 @@ import { contactAddSchema, contactUpdateSchema, contactUpdateFavoriteSchema } fr
 import * as contactController from '../../controllers/contacts-controllers.js';
 import { isEmptyBody, isValidId, isEmptyFavorite } from '../../middlewares/index.js';
 import { validateBody } from '../../decorators/index.js';
+import { authenticate } from '../../middlewares/index.js';
 
 const router = express.Router();
+
+router.use(authenticate);
 
 router.get('/', contactController.getListContacts);
 router.get('/:id', isValidId, contactController.getById);

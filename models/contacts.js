@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 import { handleSaveError, handlerUpdate } from './hooks.js';
 import Joi from 'joi';
 
+
 const contactSchema = new Schema({
   name: {
     type: String,
@@ -17,7 +18,14 @@ const contactSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+  }
 });
+
+
 contactSchema.post('save', handleSaveError);
 contactSchema.pre('findOneAndUpdate', handlerUpdate);
 contactSchema.post('findOneAndUpdate', handleSaveError);
