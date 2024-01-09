@@ -6,8 +6,12 @@ const messageList = {
   409: 'Conflict',
 };
 
-export default function HttpError(status, message = messageList[status]) {
-  const error = new Error(message);
-  error.status = status;
-  return error;
+const HttpError = (status, message = messageList[status])=> {
+    const error = new Error(message);
+    error.status = status;
+    return error;
 }
+
+export default HttpError;
+
+
