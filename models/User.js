@@ -5,10 +5,6 @@ import Joi from 'joi';
 const emailRegexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const userSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-  },
   password: {
     type: String,
     required: [true, 'Set password for user'],
@@ -32,7 +28,6 @@ userSchema.pre('findOneAndUpdate', handlerUpdate);
 userSchema.post('findOneAndUpdate', handleSaveError);
 
 export const userSignupSchema = Joi.object({
-  username: Joi.string().required(),
   email: Joi.string().required(),
   password: Joi.string().min(6).required(),
 });
