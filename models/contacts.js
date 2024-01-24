@@ -14,6 +14,10 @@ const contactSchema = new Schema({
   phone: {
     type: String,
   },
+  avatar: {
+    type: String,
+    required: true,
+  },
   favorite: {
     type: Boolean,
     default: false,
