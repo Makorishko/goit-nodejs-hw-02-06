@@ -75,9 +75,13 @@ const logout = async (req, res) => {
   res.status(204).json();
 };
 
-const updateAvatar = async (req, res) => {
-  const { _id } = req.user;
-  const { path: oldPath, filename } = req.file;
+const updateAvatar = async ({ user, file }, res) => {
+  const { _id } = user;
+  if (!file) {
+    throw HttpError(406, 'Error loading avatar');
+  }
+  const { path: oldPath, filename } = file;
+
   const avatar = await Jimp.read(oldPath);
   await avatar.cover(250, 250).quality(60).writeAsync(oldPath);
   const newName = `${_id}_${filename}`;
