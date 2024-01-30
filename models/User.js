@@ -25,11 +25,19 @@ const userSchema = new Schema({
     default: 'starter',
   },
   token: String,
+  verify: {
+    type: Boolean,
+    default: false,
+  },
+  verificationToken: {
+    type: String,
+    required: [true, 'Verify token is required'],
+  },
 });
 
 userSchema.post('save', handleSaveError);
-userSchema.pre('findOneAndUpdate', handlerUpdate);
-userSchema.post('findOneAndUpdate', handleSaveError);
+userSchema.pre('findByIdAndUpdate', handlerUpdate);
+userSchema.post('findByIdAndUpdate', handleSaveError);
 
 export const userSignupSchema = Joi.object({
   email: Joi.string().required(),
@@ -39,6 +47,9 @@ export const userSignupSchema = Joi.object({
 export const userSigninSchema = Joi.object({
   email: Joi.string().required(),
   password: Joi.string().min(6).required(),
+});
+export const userEmailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
 });
 
 const User = model('user', userSchema);

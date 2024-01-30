@@ -3,9 +3,8 @@ import logger from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRouter from './routes/api/auth-router.js';
-
+import nodemailer from 'nodemailer';
 import router from './routes/api/contacts-router.js';
-
 dotenv.config();
 
 const app = express();
